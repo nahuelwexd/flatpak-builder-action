@@ -30,7 +30,7 @@ inputs:
     default: app.flatpak
 runs:
   using: docker
-  image: docker://nahuelwexd/flatpak-docker:latest
+  image: docker://nahuelwexd/flatpak-docker:gnome-3-36
   args:
     - --manifest-path ${{ inputs.manifest-path }}
     - --meson-args ${{ inputs.meson-args }}
