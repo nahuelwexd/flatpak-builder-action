@@ -1,8 +1,6 @@
 const core = require('@actions/core')
 const { spawn } = require('child_process')
 
-
-
 const docker_args = ['run', '--cap-add', 'SYS_ADMIN', '--cap-add',
     'NET_ADMIN', '--device', '/dev/fuse', '--security-opt', 'apparmor:unconfined',
     '--security-opt', 'seccomp=unconfined', '--workdir', '/github/workspace',
