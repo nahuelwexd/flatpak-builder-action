@@ -1,0 +1,40 @@
+name: Flatpak Builder Action
+description: A GitHub action to build Flatpak bundles
+inputs:
+  manifest-path:
+    description: |
+      This is the path to your application's manifest. It can be YAML or JSON.
+    required: true
+  meson-args:
+    description: >
+      The args passed to meson to configure your app. Typically this is
+      -Dprofile=development.
+    required: true
+  flatpak-module:
+    description: >
+      The module name for your app. This is used to know which modules are
+      dependencies and which are not.
+    required: true
+  app-id:
+    description: The ID of your application.
+    required: true
+  runtime-repo:
+    description: >
+      The repository that will be used to get the runtimes when the user
+      installs the bundle.
+    required: false
+    default: https://flathub.org/repo/flathub.flatpakrepo
+  bundle:
+    description: The file name that the bundle will have.
+    required: false
+    default: app.flatpak
+runs:
+  using: docker
+  image: docker://nahuelwexd/flatpak-docker:latest
+  args:
+    - --manifest-path ${{ inputs.manifest-path }}
+    - --meson-args ${{ inputs.meson-args }}
+    - --flatpak-module ${{ inputs.flatpak-module }}
+    - --app-id ${{ inputs.app-id }}
+    - --runtime-repo ${{ inputs.runtime-repo }}
+    - --bundle ${{ inputs.bundle }}
