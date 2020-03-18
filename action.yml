@@ -38,3 +38,6 @@ runs:
     - --app-id ${{ inputs.app-id }}
     - --runtime-repo ${{ inputs.runtime-repo }}
     - --bundle ${{ inputs.bundle }}
+branding:
+  icon: box
+  color: blue
