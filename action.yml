@@ -29,15 +29,8 @@ inputs:
     required: false
     default: app.flatpak
 runs:
-  using: docker
-  image: docker://nahuelwexd/flatpak-docker:gnome-3-36
-  args:
-    - --manifest-path ${{ inputs.manifest-path }}
-    - --meson-args ${{ inputs.meson-args }}
-    - --flatpak-module ${{ inputs.flatpak-module }}
-    - --app-id ${{ inputs.app-id }}
-    - --runtime-repo ${{ inputs.runtime-repo }}
-    - --bundle ${{ inputs.bundle }}
+  using: node12
+  main: dist/index.js
 branding:
   icon: box
   color: blue
