@@ -9,7 +9,7 @@ jobs:
     - uses: ./
       with:
         bundle: org.example.MyApp.Devel.flatpak
-        manifest: org.example.MyApp.yml
+        manifest-path: org.example.MyApp.yml
         app-id: org.example.MyApp.Devel
         flatpak-module: testproject
         meson-args: -Dprofile=development
