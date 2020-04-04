@@ -1,5 +1,5 @@
 if get_option ('profile') == 'development'
-    app_project_arguments (
+    add_project_arguments (
         ['-D', 'DEVEL'],
         language: 'vala'
     )
