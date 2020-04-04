@@ -1,9 +1,9 @@
 const core = require('@actions/core')
 const { spawn } = require('child_process')
 
-const docker_args = ['run', '--cap-add', 'SYS_ADMIN', '--cap-add',
-    'NET_ADMIN', '--device', '/dev/fuse', '--security-opt', 'apparmor:unconfined',
-    '--security-opt', 'seccomp=unconfined', '--workdir', '/github/workspace',
+const docker_args = ['run', '--cap-add=SYS_ADMIN', '--cap-add=NET_ADMIN',
+    '--device=/dev/fuse', '--security-opt="apparmor:unconfined"',
+    '--security-opt="seccomp=unconfined"', '-w="/github/workspace"',
     '--rm', '-e', 'INPUT_ARGS', '-e', 'HOME', '-e', 'GITHUB_REF', '-e', 'GITHUB_SHA',
     '-e', 'GITHUB_REPOSITORY', '-e', 'GITHUB_ACTOR', '-e', 'GITHUB_WORKFLOW',
     '-e', 'GITHUB_HEAD_REF', '-e', 'GITHUB_BASE_REF', '-e', 'GITHUB_EVENT_NAME',
