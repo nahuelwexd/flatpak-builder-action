@@ -1,7 +1,7 @@
 const core = require('@actions/core')
 const { spawn } = require('child_process')
 
-const docker_args = ['run', '--security-opt', 'seccomp=flatpak-docker-seccomp.json',
+const docker_args = ['run', '--security-opt', 'seccomp=unconfined',
     '--workdir', '/github/workspace', '--rm', '-e', 'INPUT_ARGS', '-e', 'HOME',
     '-e', 'GITHUB_REF', '-e', 'GITHUB_SHA', '-e', 'GITHUB_REPOSITORY',
     '-e', 'GITHUB_ACTOR', '-e', 'GITHUB_WORKFLOW', '-e', 'GITHUB_HEAD_REF',
@@ -12,7 +12,7 @@ const docker_args = ['run', '--security-opt', 'seccomp=flatpak-docker-seccomp.js
     '-v', '/home/runner/work/_temp/_github_home:/github/home',
     '-v', '/home/runner/work/_temp/_github_workflow:/github/workflow',
     '-v', process.env.GITHUB_WORKSPACE + ':/github/workspace', '-i',
-    'nahuelwexd/flatpak-docker:latest']
+    'nahuelwexd/flatpak-docker:gnome-3-36']
 
 if (core.getInput('manifest-path') !== '') {
     docker_args.push('--manifest-path', core.getInput('manifest-path'))
