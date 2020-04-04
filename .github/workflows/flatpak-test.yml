@@ -1,0 +1,15 @@
+on: [push, pull_request]
+name: Flatpak
+jobs:
+  flatpak-builder:
+    name: Flatpak Builder
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - uses: nahuelwexd/flatpak-builder-action@gnome-3-36
+      with:
+        bundle: org.example.MyApp.Devel.flatpak
+        manifest: org.example.MyApp.yml
+        app-id: org.example.MyApp.Devel
+        flatpak-module: testproject
+        meson-args: -Dprofile=development
