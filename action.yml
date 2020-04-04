@@ -30,7 +30,7 @@ inputs:
     default: app.flatpak
 runs:
   using: node12
-  main: js/dist/index.js
+  main: dist/index.js
 branding:
   icon: box
   color: blue

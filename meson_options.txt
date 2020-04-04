@@ -1,5 +1,0 @@
-option ('profile',
-       type: 'combo',
-      value: 'default',
-    choices: ['default', 'development']
-)
