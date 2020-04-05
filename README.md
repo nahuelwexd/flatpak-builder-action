@@ -36,4 +36,4 @@ the meson build system.
 
 ### Example
 
-You can see a working example on this project, [here](.github/workflow/flatpak-test.yml)
+You can see a working example on this project, [here](.github/workflows/flatpak-test.yml)
