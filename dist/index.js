@@ -34,7 +34,7 @@ module.exports =
 /******/ 	// the startup function
 /******/ 	function startup() {
 /******/ 		// Load entry module and return exports
-/******/ 		return __webpack_require__(410);
+/******/ 		return __webpack_require__(888);
 /******/ 	};
 /******/
 /******/ 	// run startup
@@ -50,7 +50,7 @@ module.exports = require("os");
 
 /***/ }),
 
-/***/ 92:
+/***/ 118:
 /***/ (function(__unusedmodule, exports, __webpack_require__) {
 
 "use strict";
@@ -142,7 +142,7 @@ module.exports = require("child_process");
 
 /***/ }),
 
-/***/ 357:
+/***/ 369:
 /***/ (function(__unusedmodule, exports, __webpack_require__) {
 
 "use strict";
@@ -164,7 +164,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const command_1 = __webpack_require__(92);
+const command_1 = __webpack_require__(118);
 const os = __importStar(__webpack_require__(87));
 const path = __importStar(__webpack_require__(622));
 /**
@@ -358,23 +358,33 @@ exports.getState = getState;
 
 /***/ }),
 
-/***/ 410:
+/***/ 622:
+/***/ (function(module) {
+
+module.exports = require("path");
+
+/***/ }),
+
+/***/ 888:
 /***/ (function(__unusedmodule, __unusedexports, __webpack_require__) {
 
-const core = __webpack_require__(357)
+const core = __webpack_require__(369)
 const { spawn } = __webpack_require__(129)
 
-const docker_args = ['run', '--security-opt', 'seccomp=flatpak-docker-seccomp.json',
-    '--workdir', '/github/workspace', '--rm', '-e', 'INPUT_ARGS', '-e', 'HOME',
-    '-e', 'GITHUB_REF', '-e', 'GITHUB_SHA', '-e', 'GITHUB_REPOSITORY',
-    '-e', 'GITHUB_ACTOR', '-e', 'GITHUB_WORKFLOW', '-e', 'GITHUB_HEAD_REF',
-    '-e', 'GITHUB_BASE_REF', '-e', 'GITHUB_EVENT_NAME', '-e', 'GITHUB_WORKSPACE',
-    '-e', 'GITHUB_ACTION', '-e', 'GITHUB_EVENT_PATH', '-e', 'RUNNER_OS',
-    '-e', 'RUNNER_TOOL_CACHE', '-e', 'RUNNER_TEMP', '-e', 'RUNNER_WORKSPACE',
-    '-v', '/var/run/docker.sock:/var/run/docker.sock',
-    '-v', '/home/runner/work/_temp/_github_home:/github/home',
-    '-v', '/home/runner/work/_temp/_github_workflow:/github/workflow',
-    '-v', process.env.GITHUB_WORKSPACE + ':/github/workspace', '-i',
+
+
+const docker_args = ['run', '--cap-add', 'SYS_ADMIN', '--cap-add',
+    'NET_ADMIN', '--device', '/dev/fuse', '--security-opt', 'apparmor:unconfined',
+    '--security-opt', 'seccomp=unconfined', '--workdir', '/github/workspace',
+    '--rm', '-e', 'INPUT_ARGS', '-e', 'HOME', '-e', 'GITHUB_REF', '-e', 'GITHUB_SHA',
+    '-e', 'GITHUB_REPOSITORY', '-e', 'GITHUB_ACTOR', '-e', 'GITHUB_WORKFLOW',
+    '-e', 'GITHUB_HEAD_REF', '-e', 'GITHUB_BASE_REF', '-e', 'GITHUB_EVENT_NAME',
+    '-e', 'GITHUB_WORKSPACE', '-e', 'GITHUB_ACTION', '-e', 'GITHUB_EVENT_PATH',
+    '-e', 'RUNNER_OS', '-e', 'RUNNER_TOOL_CACHE', '-e', 'RUNNER_TEMP', '-e',
+    'RUNNER_WORKSPACE', '-v', '/var/run/docker.sock:/var/run/docker.sock',
+    '-v', '/home/runner/work/_temp/_github_home:/github/home', '-v',
+    '/home/runner/work/_temp/_github_workflow:/github/workflow', '-v',
+    process.env.GITHUB_WORKSPACE + ':/github/workspace', '-i',
     'nahuelwexd/flatpak-docker:gnome-3-36']
 
 if (core.getInput('manifest-path') !== '') {
@@ -417,13 +427,6 @@ docker.on('close', (code) => {
     process.exit(code)
 })
 
-
-/***/ }),
-
-/***/ 622:
-/***/ (function(module) {
-
-module.exports = require("path");
 
 /***/ })
 
