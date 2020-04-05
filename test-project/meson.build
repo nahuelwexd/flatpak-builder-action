@@ -1,13 +1,13 @@
 if get_option ('profile') == 'development'
     add_project_arguments (
         ['-D', 'DEVEL'],
-        language: 'vala'
+        language: 'c'
     )
 endif
 
 executable (
     meson.project_name (),
-    files ('main.vala'),
+    files ('main.c'),
     dependencies: [
         dependency ('gtk+-3.0')
     ],

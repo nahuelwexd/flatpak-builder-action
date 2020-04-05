@@ -1,6 +1,5 @@
 project (
-    'test-project',
-    'c', 'vala'
+    'test-project', 'c'
 )
 
 subdir ('test-project')
