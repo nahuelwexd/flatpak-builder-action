@@ -23,7 +23,7 @@ This action builds a Flatpak bundle of your app
 ## Example usage
 
 ```yml
-uses: nahuelwexd/flatpak-builder-action@gnome-3-36
+uses: nahuelwexd/flatpak-builder-action@freedesktop-19-08
 with:
   manifest-path: build-aux/org.example.MyApp.json
   meson-args: -Dprofile=development
