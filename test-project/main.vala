@@ -5,7 +5,7 @@ class App : Gtk.Application {
     public App () {
         Object (
 #if DEVEL
-            application_id: "org.example.MyApp.Devel"
+            application_id: "org.example.MyApp.Devel",
 #else
             application_id: "org.example.MyApp",
 #endif
