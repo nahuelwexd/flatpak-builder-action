@@ -18,7 +18,7 @@ class App : Gtk.Application {
         return app.run (args);
     }
 
-    protected override activate () {
+    protected override void activate () {
         var win = this.active_window;
 
         if (win == null) {
