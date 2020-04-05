@@ -29,10 +29,10 @@ the meson build system.
 - `app-id`  
   The ID of your application.
 - `runtime-repo`  
-  The repository that will be used to get the runtimes when the user installs
-  the bundle
+  _(Optional)_ The repository that will be used to get the runtimes when the
+  user installs the bundle. Defaults to https://flathub.org/repo/flathub.flatpakrepo.
 - `bundle`  
-  The file name that the bundle will have
+  _(Optional)_ The file name that the bundle will have. Defaults to `app.flatpak`.
 
 ### Example
 
