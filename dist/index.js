@@ -34,7 +34,7 @@ module.exports =
 /******/ 	// the startup function
 /******/ 	function startup() {
 /******/ 		// Load entry module and return exports
-/******/ 		return __webpack_require__(888);
+/******/ 		return __webpack_require__(622);
 /******/ 	};
 /******/
 /******/ 	// run startup
@@ -50,7 +50,14 @@ module.exports = require("os");
 
 /***/ }),
 
-/***/ 118:
+/***/ 129:
+/***/ (function(module) {
+
+module.exports = require("child_process");
+
+/***/ }),
+
+/***/ 215:
 /***/ (function(__unusedmodule, exports, __webpack_require__) {
 
 "use strict";
@@ -135,14 +142,77 @@ function escapeProperty(s) {
 
 /***/ }),
 
-/***/ 129:
+/***/ 277:
 /***/ (function(module) {
 
-module.exports = require("child_process");
+module.exports = require("path");
 
 /***/ }),
 
-/***/ 369:
+/***/ 622:
+/***/ (function(__unusedmodule, __unusedexports, __webpack_require__) {
+
+const core = __webpack_require__(827)
+const { spawn } = __webpack_require__(129)
+
+const docker_args = ['run', '--cap-add', 'SYS_ADMIN', '--cap-add',
+    'NET_ADMIN', '--device', '/dev/fuse', '--security-opt', 'apparmor:unconfined',
+    '--security-opt', 'seccomp=unconfined', '--workdir', '/github/workspace',
+    '--rm', '-e', 'INPUT_ARGS', '-e', 'HOME', '-e', 'GITHUB_REF', '-e', 'GITHUB_SHA',
+    '-e', 'GITHUB_REPOSITORY', '-e', 'GITHUB_ACTOR', '-e', 'GITHUB_WORKFLOW',
+    '-e', 'GITHUB_HEAD_REF', '-e', 'GITHUB_BASE_REF', '-e', 'GITHUB_EVENT_NAME',
+    '-e', 'GITHUB_WORKSPACE', '-e', 'GITHUB_ACTION', '-e', 'GITHUB_EVENT_PATH',
+    '-e', 'RUNNER_OS', '-e', 'RUNNER_TOOL_CACHE', '-e', 'RUNNER_TEMP', '-e',
+    'RUNNER_WORKSPACE', '-v', '/var/run/docker.sock:/var/run/docker.sock',
+    '-v', '/home/runner/work/_temp/_github_home:/github/home', '-v',
+    '/home/runner/work/_temp/_github_workflow:/github/workflow', '-v',
+    process.env.GITHUB_WORKSPACE + ':/github/workspace', '-i',
+    'nahuelwexd/flatpak-docker:freedesktop-19-08']
+
+if (core.getInput('manifest-path') !== '') {
+    docker_args.push('--manifest-path', core.getInput('manifest-path'))
+}
+
+if (core.getInput('meson-args') !== '') {
+    docker_args.push('--meson-args', core.getInput('meson-args'))
+}
+
+if (core.getInput('flatpak-module') !== '') {
+    docker_args.push('--flatpak-module', core.getInput('flatpak-module'))
+}
+
+if (core.getInput('app-id') !== '') {
+    docker_args.push('--app-id', core.getInput('app-id'))
+}
+
+if (core.getInput('runtime-repo') !== '') {
+    docker_args.push('--runtime-repo', core.getInput('runtime-repo'))
+}
+
+if (core.getInput('bundle') !== '') {
+    docker_args.push('--bundle', core.getInput('bundle'))
+}
+
+const docker = spawn('docker', docker_args, {
+    shell: true
+})
+
+docker.stdout.on('data', (data) => {
+    process.stdout.write(`${data}`)
+})
+
+docker.stderr.on('data', (data) => {
+    process.stderr.write(`${data}`)
+})
+
+docker.on('close', (code) => {
+    process.exit(code)
+})
+
+
+/***/ }),
+
+/***/ 827:
 /***/ (function(__unusedmodule, exports, __webpack_require__) {
 
 "use strict";
@@ -164,9 +234,9 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const command_1 = __webpack_require__(118);
+const command_1 = __webpack_require__(215);
 const os = __importStar(__webpack_require__(87));
-const path = __importStar(__webpack_require__(622));
+const path = __importStar(__webpack_require__(277));
 /**
  * The code to exit an action
  */
@@ -355,78 +425,6 @@ function getState(name) {
 }
 exports.getState = getState;
 //# sourceMappingURL=core.js.map
-
-/***/ }),
-
-/***/ 622:
-/***/ (function(module) {
-
-module.exports = require("path");
-
-/***/ }),
-
-/***/ 888:
-/***/ (function(__unusedmodule, __unusedexports, __webpack_require__) {
-
-const core = __webpack_require__(369)
-const { spawn } = __webpack_require__(129)
-
-
-
-const docker_args = ['run', '--cap-add', 'SYS_ADMIN', '--cap-add',
-    'NET_ADMIN', '--device', '/dev/fuse', '--security-opt', 'apparmor:unconfined',
-    '--security-opt', 'seccomp=unconfined', '--workdir', '/github/workspace',
-    '--rm', '-e', 'INPUT_ARGS', '-e', 'HOME', '-e', 'GITHUB_REF', '-e', 'GITHUB_SHA',
-    '-e', 'GITHUB_REPOSITORY', '-e', 'GITHUB_ACTOR', '-e', 'GITHUB_WORKFLOW',
-    '-e', 'GITHUB_HEAD_REF', '-e', 'GITHUB_BASE_REF', '-e', 'GITHUB_EVENT_NAME',
-    '-e', 'GITHUB_WORKSPACE', '-e', 'GITHUB_ACTION', '-e', 'GITHUB_EVENT_PATH',
-    '-e', 'RUNNER_OS', '-e', 'RUNNER_TOOL_CACHE', '-e', 'RUNNER_TEMP', '-e',
-    'RUNNER_WORKSPACE', '-v', '/var/run/docker.sock:/var/run/docker.sock',
-    '-v', '/home/runner/work/_temp/_github_home:/github/home', '-v',
-    '/home/runner/work/_temp/_github_workflow:/github/workflow', '-v',
-    process.env.GITHUB_WORKSPACE + ':/github/workspace', '-i',
-    'nahuelwexd/flatpak-docker:gnome-3-36']
-
-if (core.getInput('manifest-path') !== '') {
-    docker_args.push('--manifest-path', core.getInput('manifest-path'))
-}
-
-if (core.getInput('meson-args') !== '') {
-    docker_args.push('--meson-args', core.getInput('meson-args'))
-}
-
-if (core.getInput('flatpak-module') !== '') {
-    docker_args.push('--flatpak-module', core.getInput('flatpak-module'))
-}
-
-if (core.getInput('app-id') !== '') {
-    docker_args.push('--app-id', core.getInput('app-id'))
-}
-
-if (core.getInput('runtime-repo') !== '') {
-    docker_args.push('--runtime-repo', core.getInput('runtime-repo'))
-}
-
-if (core.getInput('bundle') !== '') {
-    docker_args.push('--bundle', core.getInput('bundle'))
-}
-
-const docker = spawn('docker', docker_args, {
-    shell: true
-})
-
-docker.stdout.on('data', (data) => {
-    process.stdout.write(`${data}`)
-})
-
-docker.stderr.on('data', (data) => {
-    process.stderr.write(`${data}`)
-})
-
-docker.on('close', (code) => {
-    process.exit(code)
-})
-
 
 /***/ })
 
