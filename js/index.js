@@ -14,7 +14,7 @@ const docker_args = ['run', '--security-opt', 'seccomp=flatpak-docker-seccomp.js
     '-v', '/var/run/docker.sock:/var/run/docker.sock',
     '-v', '/home/runner/work/_temp/_github_home:/home/builduser/github/home',
     '-v', '/home/runner/work/_temp/_github_workflow:/home/builduser/github/workflow',
-    '-v', process.env.GITHUB_WORKSPACE + ':/github/workspace', '-i',
+    '-v', process.env.GITHUB_WORKSPACE + ':/home/builduser/github/workspace', '-i',
     'nahuelwexd/flatpak-docker:gnome-3-36-wip']
 
 if (core.getInput('manifest-path') !== '') {
